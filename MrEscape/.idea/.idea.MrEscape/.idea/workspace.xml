@@ -36,22 +36,22 @@
       <option value="$PROJECT_DIR$/Library/PackageCache/com.unity.postprocessing@2.3.0/PostProcessing/Shaders/Builtins/Lut3DBaker.compute" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Mechanics/Joystick.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Cinemachine/CinemachineShake.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Cinemachine/CinemachineEffects.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Logic/Score.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Logic/PLayerScore.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Logic/PLayerLogic.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Mechanics/Character/Audio.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DontDestroy.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Tools/Tags.cs" />
       <option value="$PROJECT_DIR$/Assets/Jammo-Character/Scripts/MovementInput.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Tools/Prefs.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/UI/MainUI.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Pool.cs" />
       <option value="$PROJECT_DIR$/Assets/JMO Assets/Cartoon FX/Scripts/CFX_AutoDestructShuriken.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Logic/PlayerLogic.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/UI/TimerGame.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Cinemachine/CinemachineEffects.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Logic/PlayerLogic.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Mechanics/Character/Audio.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Mechanics/Character/Collision.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Mechanics/JoystickPointer.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Tools/Prefs.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Tools/Tags.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Pool.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/UI/MainUI.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1uiU7NP5wl3jWJddVkGCSS05yZc" />
@@ -98,7 +98,7 @@
       <option name="presentableId" value="Default" />
       <updated>1625147737674</updated>
       <workItem from="1625147744438" duration="35666000" />
-      <workItem from="1625260880757" duration="24182000" />
+      <workItem from="1625260880757" duration="25627000" />
     </task>
     <servers />
   </component>

@@ -1,5 +1,8 @@
 ﻿namespace Tools
 {
+    /// <summary>
+    /// Save PlayerPrefs
+    /// </summary>
     public static class Prefs
     {
         public const string CurrentLevel = "CurrentLevel";

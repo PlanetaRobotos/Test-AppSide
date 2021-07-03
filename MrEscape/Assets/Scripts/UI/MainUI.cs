@@ -9,19 +9,23 @@ using Collision = Mechanics.Character.Collision;
 
 namespace UI
 {
+    /// <summary>
+    /// Lots of UI changes
+    /// </summary>
     [RequireComponent(typeof(AudioSource))]
     public class MainUI : MonoBehaviour
     {
+        [Tooltip("Player Win")]
         [SerializeField] private GameObject finishPanel;
         
+        [Header("Upper Panel Stuff")]
         [SerializeField] private TMP_Text scoreText;
         [SerializeField] private TMP_Text levelText;
         [SerializeField] private Slider scoreSlider;
 
+        [Header("Start Panel Stuff")]
         [SerializeField] private Image soundsButton;
-
         [SerializeField] private Sprite[] audioSprites;
-
         [SerializeField] private AudioSource uiAudioSource;
         
         private AudioSource[] _audioSources;
@@ -35,7 +39,6 @@ namespace UI
             };
 
             Collision.OnVictoryUI += VictoryUI;
-
             PlayerLogic.OnFirstGame += InitAudio;
         }
 
@@ -44,21 +47,16 @@ namespace UI
             Collision.OnChangeScore -= ChangeScore;
             Collision.OnChangeScore -= ChangeSliderValue;
             Collision.OnVictoryUI -= VictoryUI;
-
             PlayerLogic.OnFirstGame -= InitAudio;
         }
 
-        private void Awake()
-        {
-            _audioSources = FindObjectsOfType<AudioSource>();
-        }
+        private void Awake() => _audioSources = FindObjectsOfType<AudioSource>();
 
         private void Start()
         {
             uiAudioSource = GetComponent<AudioSource>();
             
             InitAudio();
-
             ChangeLevel();
             ChangeScore();
 
@@ -66,15 +64,11 @@ namespace UI
             scoreSlider.value = 0;
         }
 
-        private void VictoryUI()
-        {
-            finishPanel.SetActive(true);
-        }
+        private void VictoryUI() => finishPanel.SetActive(true);
 
         public void Restart()
         {
             Time.timeScale = 1;
-            // uiAudioSource.Play();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
@@ -90,10 +84,7 @@ namespace UI
             scoreText.text = $"{newScore}/{PlayerLogic.MaxScore}";
         }
 
-        private void ChangeLevel()
-        {
-            levelText.text = $"Level {PlayerPrefs.GetInt(Prefs.UILevel)}";
-        }
+        private void ChangeLevel() => levelText.text = $"Level {PlayerPrefs.GetInt(Prefs.UILevel)}";
 
         private void ChangeSliderValue()
         {
@@ -111,8 +102,6 @@ namespace UI
         {
             uiAudioSource.Play();
             bool isMute = PlayerPrefs.GetInt(Prefs.MuteAudio) == 1;
-            // Debug.Log("isMute = " + isMute);
-
             soundsButton.sprite = isMute ? audioSprites[0] : audioSprites[1];
 
             foreach (AudioSource source in _audioSources)
@@ -124,7 +113,6 @@ namespace UI
         private void InitAudio()
         {
             bool isMute = PlayerPrefs.GetInt(Prefs.MuteAudio) == 1;
-
             soundsButton.sprite = isMute ? audioSprites[1] : audioSprites[0];
 
             foreach (AudioSource source in _audioSources)

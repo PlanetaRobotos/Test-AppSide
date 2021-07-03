@@ -1,5 +1,8 @@
 ﻿namespace Tools
 {
+    /// <summary>
+    /// Save Tags
+    /// </summary>
     public static class Tags
     {
         public const string EffectsBox = "EffectsBox";

@@ -6,20 +6,25 @@ using UnityEngine.Rendering.Universal;
 
 namespace Cinemachine
 {
+    /// <summary>
+    /// Effects (bloom, vignette, shake screen). Using with Mutant jump
+    /// </summary>
     public class CinemachineEffects : MonoBehaviour
     {
+        [Header("Effects Stuff")]
         [SerializeField] private Volume volume;
         [SerializeField] private float bloomIntensity;
         [SerializeField] private float vignetteIntensity;
         [SerializeField] private float shakeIntensity;
+        [SerializeField] private float speed = 1f;
+        
         private Bloom _bloom;
         private Vignette _vignette;
-
         private CinemachineVirtualCamera _cinemachineVirtualCamera;
         private CinemachineBasicMultiChannelPerlin _channelPerlin;
 
         public static CinemachineEffects Instance;
-        [SerializeField] private float speed = 1f;
+
 
         private void Awake()
         {
@@ -40,7 +45,10 @@ namespace Cinemachine
             }
         }
 
-        public void ShakeScreen()
+        /// <summary>
+        /// Create visual effects
+        /// </summary>
+        public void MutantEffect()
         {
             StartCoroutine(BloomEffectIe());
             StartCoroutine(VignetteEffectIe());
@@ -71,6 +79,10 @@ namespace Cinemachine
             }
         }
         
+        /// <summary>
+        /// Perlin shake. Great stuff
+        /// </summary>
+        /// <returns></returns>
         private IEnumerator ShakeEffectIe()
         {
             _channelPerlin.m_AmplitudeGain = shakeIntensity;

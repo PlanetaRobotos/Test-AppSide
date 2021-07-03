@@ -2,52 +2,32 @@
 
 namespace Mechanics.Character
 {
+    /// <summary>
+    /// Audio Class (Player? explosions, etg)
+    /// </summary>
     public class Audio : MonoBehaviour
     {
         [Header("Explosion")] public AudioClip jumpClip;
         public AudioClip boomClip;
 
-        [Header("Movement")] public AudioClip[] stepClips;
         public AudioClip stepClip;
 
         private AudioSource _audio;
         [SerializeField] private AudioSource stepsAudio;
 
+        private void Start() => _audio = GetComponent<AudioSource>();
 
-        public static Audio Instance;
+        public void PlaySfx(AudioClip clip) => _audio.PlayOneShot(clip);
 
-        private void Awake()
-        {
-            Instance = this;
-        }
-
-        private void Start()
-        {
-            _audio = GetComponent<AudioSource>();
-        }
-
-        public void PlaySfx(AudioClip clip)
-        {
-            _audio.PlayOneShot(clip);
-        }
-
+        /// <summary>
+        /// Changing audio settings
+        /// </summary>
+        /// <param name="needPLay">if need to play now clip</param>
         public void MoveAudio(bool needPLay)
         {
             if (!stepsAudio.isPlaying && needPLay)
             {
-                // if (stepsAudio.clip == stepClips[0])
-                // {
-                //     stepsAudio.PlayOneShot(stepClips[1]);
-                //     stepsAudio.clip = stepClips[1];
-                // }
-                // else
-                // {
-                //     stepsAudio.PlayOneShot(stepClips[0]);
-                //     stepsAudio.clip = stepClips[0];
-                // }
-
                 stepsAudio.PlayOneShot(stepClip);
-                // stepClip.
             }
             else if (stepsAudio.isPlaying && !needPLay)
                 stepsAudio.Stop();

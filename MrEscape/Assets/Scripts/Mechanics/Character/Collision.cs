@@ -3,6 +3,7 @@ using System.Collections;
 using Cinemachine;
 using DG.Tweening;
 using Logic;
+using Scripts;
 using Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,12 +11,16 @@ using Random = UnityEngine.Random;
 
 namespace Mechanics.Character
 {
+    /// <summary>
+    /// Player Collisions Stuff
+    /// </summary>
     [RequireComponent(typeof(CapsuleCollider))]
     public class Collision : MonoBehaviour
     {
         public static event Action OnChangeScore;
         public static event Action OnVictoryUI;
 
+        [Header("Collider Properties")]
         [SerializeField] private float minRadius;
         [SerializeField] private float maxRadius;
 
@@ -28,15 +33,9 @@ namespace Mechanics.Character
         private static readonly int Victory = Animator.StringToHash("Victory");
         [SerializeField] private AudioClip victoryClip;
 
-        private void OnEnable()
-        {
-            MovementInput.OnSetColliderRadius += SetRadius;
-        }
+        private void OnEnable() => MovementInput.OnSetColliderRadius += SetRadius;
 
-        private void OnDisable()
-        {
-            MovementInput.OnSetColliderRadius -= SetRadius;
-        }
+        private void OnDisable() => MovementInput.OnSetColliderRadius -= SetRadius;
 
         private void SetRadius(bool setBig) =>
             _collider.radius = setBig ? maxRadius : minRadius;
@@ -57,34 +56,46 @@ namespace Mechanics.Character
             {
                 other.tag = Tags.Untagged;
 
-                Transform objectTransform = other.transform;
-
-                Sequence mySequence = DOTween.Sequence();
-
-                mySequence.Append(objectTransform.DOMoveY(objectTransform.position.y + 0.7f, 0.4f)
-                    .SetEase(Ease.OutElastic));
-                mySequence.Append(objectTransform.DOScale(0.3f, 1f).SetEase(Ease.InElastic));
-                mySequence.PrependInterval(0.1f);
-                mySequence.OnComplete(() =>
-                {
-                    _audio.PlaySfx(_audio.boomClip);
-                    PlayerLogic.CurrentScore++;
-                    OnChangeScore?.Invoke();
-
-                    ParticleSystem newBoom =
-                        Instantiate(particles[Random.Range(0, particles.Length)],
-                            objectTransform.position, Quaternion.identity);
-                    newBoom.transform.localScale = Vector3.one * 0.7f;
-                    CinemachineEffects.Instance.BloomEffect();
-                    
-                    Destroy(other.gameObject, 0.1f);
-
-                    CheckVictory();
-                });
-                mySequence.Play();
+                CreateEffects(other);
             }
         }
 
+        /// <summary>
+        /// Some effects for objects (audio and visual)
+        /// </summary>
+        /// <param name="other">stuff in scene</param>
+        private void CreateEffects(Collider other)
+        {
+            Transform objectTransform = other.transform;
+
+            Sequence mySequence = DOTween.Sequence();
+
+            mySequence.Append(objectTransform.DOMoveY(objectTransform.position.y + 0.7f, 0.4f)
+                .SetEase(Ease.OutElastic));
+            mySequence.Append(objectTransform.DOScale(0.3f, 1f).SetEase(Ease.InElastic));
+            mySequence.PrependInterval(0.1f);
+            mySequence.OnComplete(() =>
+            {
+                _audio.PlaySfx(_audio.boomClip);
+                PlayerLogic.CurrentScore++;
+                OnChangeScore?.Invoke();
+
+                ParticleSystem newBoom =
+                    Instantiate(particles[Random.Range(0, particles.Length)],
+                        objectTransform.position, Quaternion.identity);
+                newBoom.transform.localScale = Vector3.one * 0.7f;
+                CinemachineEffects.Instance.BloomEffect();
+
+                Destroy(other.gameObject, 0.1f);
+
+                CheckVictory();
+            });
+            mySequence.Play();
+        }
+
+        /// <summary>
+        /// Set value for data when Victory level
+        /// </summary>
         private void CheckVictory()
         {
             if (PlayerLogic.CurrentScore >= PlayerLogic.MaxScore)
@@ -102,10 +113,5 @@ namespace Mechanics.Character
             yield return new WaitForSeconds(4f);
             OnVictoryUI?.Invoke();
         }
-
-        // private void FixedUpdate()
-        // {
-        //     transform.position = _player.position;
-        // }
     }
 }

@@ -6,6 +6,9 @@ using Random = UnityEngine.Random;
 
 namespace Logic
 {
+    /// <summary>
+    /// Main Logic class
+    /// </summary>
     public class PlayerLogic : MonoBehaviour
     {
         public static event Action OnFirstGame;
@@ -18,10 +21,10 @@ namespace Logic
 
         public static bool CanMove { get; set; }
 
+        [Header("Logic Stuff")]
         [SerializeField] private int[] scores;
         [SerializeField] private int[] maxTimes;
         [SerializeField] private Transform[] playerStartPositions;
-
         [SerializeField] private int countOfLevels;
 
         private Transform _playerTransform;
@@ -29,14 +32,27 @@ namespace Logic
         private void Awake()
         {
             CurrentLevel = 0;
+            CheckFirstGame();
 
-            bool isFirstGame = PlayerPrefs.GetInt(Prefs.FirstGame) == 0;
-            if (isFirstGame)
-            {
-                OnFirstGame?.Invoke();
-                PlayerPrefs.SetInt(Prefs.FirstGame, 1);
-            }
+            LogicSettings();
 
+            CurrentLevel = PlayerPrefs.GetInt(Prefs.CurrentLevel);
+
+            CurrentScore = 0;
+            MaxScore = scores[CurrentLevel];
+            CurrentMaxTime = maxTimes[CurrentLevel];
+
+            PlayerPrefs.SetInt(Prefs.CompleteLevel, 0);
+            PlayerPrefs.SetInt(Prefs.PreviousLevel, CurrentLevel);
+
+            _playerTransform.position = playerStartPositions[CurrentLevel].position;
+        }
+
+        /// <summary>
+        /// Level, score and ui-level settings
+        /// </summary>
+        private void LogicSettings()
+        {
             _playerTransform = GameObject.FindWithTag(Tags.Player).transform;
             CanMove = true;
             CurrentLevel = PlayerPrefs.GetInt(Prefs.CurrentLevel);
@@ -74,17 +90,16 @@ namespace Logic
 
                 PlayerPrefs.SetInt(Prefs.UILevel, uiLevel + 1);
             }
+        }
 
-            CurrentLevel = PlayerPrefs.GetInt(Prefs.CurrentLevel);
-
-            CurrentScore = 0;
-            MaxScore = scores[CurrentLevel];
-            CurrentMaxTime = maxTimes[CurrentLevel];
-
-            PlayerPrefs.SetInt(Prefs.CompleteLevel, 0);
-            PlayerPrefs.SetInt(Prefs.PreviousLevel, CurrentLevel);
-
-            _playerTransform.position = playerStartPositions[CurrentLevel].position;
+        private static void CheckFirstGame()
+        {
+            bool isFirstGame = PlayerPrefs.GetInt(Prefs.FirstGame) == 0;
+            if (isFirstGame)
+            {
+                OnFirstGame?.Invoke();
+                PlayerPrefs.SetInt(Prefs.FirstGame, 1);
+            }
         }
     }
 }
