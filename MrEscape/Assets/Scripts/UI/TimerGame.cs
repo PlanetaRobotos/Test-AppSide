@@ -7,6 +7,7 @@ using Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Collision = Mechanics.Character.Collision;
 
 namespace UI
 {
@@ -23,12 +24,23 @@ namespace UI
         [SerializeField] private GameObject timerBg;
 
         [SerializeField] private AudioClip loseClip;
-        
+
         private Animator _animator;
         private float _timer;
         private Animator _playerAnimator;
-        
+        private bool _isLevelComplete;
+
         private static readonly int Lose = Animator.StringToHash("Lose");
+
+        private void OnEnable()
+        {
+            Collision.OnVictoryTimer += LevelComplete;
+        }
+
+        private void OnDisable()
+        {
+            Collision.OnVictoryTimer -= LevelComplete;
+        }
 
         private void Start()
         {
@@ -76,6 +88,11 @@ namespace UI
             }
         }
 
+        private void LevelComplete()
+        {
+            _isLevelComplete = true;
+        }
+
         private IEnumerator TimerIe()
         {
             _timer = PlayerLogic.CurrentMaxTime;
@@ -85,14 +102,18 @@ namespace UI
                 timerText.text = $"{Math.Round(_timer, 2)}";
                 if (_timer < 10f && !_animator.enabled)
                     _animator.enabled = true;
+
+                if (_isLevelComplete) break;
                 yield return null;
             }
+
+            if (_isLevelComplete) yield break;
 
             timerText.gameObject.SetActive(false);
             PlayerLogic.CanMove = false;
             _playerAnimator.SetTrigger(Lose);
             Audio.Instance.PlaySfx(loseClip);
-            
+
             yield return new WaitForSeconds(6f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

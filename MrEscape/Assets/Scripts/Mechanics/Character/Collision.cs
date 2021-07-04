@@ -18,7 +18,8 @@ namespace Mechanics.Character
     public class Collision : MonoBehaviour
     {
         public static event Action OnChangeScore;
-        public static event Action OnVictoryUI;
+        public static event Action OnVictory;
+        public static event Action OnVictoryTimer;
 
         [Header("Collider Properties")]
         [SerializeField] private float minRadius;
@@ -100,6 +101,7 @@ namespace Mechanics.Character
         {
             if (PlayerLogic.CurrentScore >= PlayerLogic.MaxScore)
             {
+                OnVictoryTimer?.Invoke();
                 PlayerPrefs.SetInt(Prefs.CompleteLevel, 1);
                 StartCoroutine(VictoryIe());
             }
@@ -111,7 +113,7 @@ namespace Mechanics.Character
             _playerAnimator.SetTrigger(Victory);
             _audio.PlaySfx(victoryClip);
             yield return new WaitForSeconds(4f);
-            OnVictoryUI?.Invoke();
+            OnVictory?.Invoke();
         }
     }
 }

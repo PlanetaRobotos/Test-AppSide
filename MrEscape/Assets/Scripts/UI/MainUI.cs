@@ -39,7 +39,7 @@ namespace UI
                 ChangeSliderValue();
             };
 
-            Collision.OnVictoryUI += VictoryUI;
+            Collision.OnVictory += Victory;
             PlayerLogic.OnFirstGame += InitAudio;
         }
 
@@ -47,7 +47,7 @@ namespace UI
         {
             Collision.OnChangeScore -= ChangeScore;
             Collision.OnChangeScore -= ChangeSliderValue;
-            Collision.OnVictoryUI -= VictoryUI;
+            Collision.OnVictory -= Victory;
             PlayerLogic.OnFirstGame -= InitAudio;
         }
 
@@ -65,7 +65,7 @@ namespace UI
             scoreSlider.value = 0;
         }
 
-        private void VictoryUI() => finishPanel.SetActive(true);
+        private void Victory() => finishPanel.SetActive(true);
 
         public void Restart()
         {
