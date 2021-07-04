@@ -10,9 +10,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.recorder@2.5.5/Editor/Timeline/_WaitForEndOfFrameComponent.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://C:/Program Files/Unity/Hub/Editor/2020.3.13f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/24599FE2-7761-45D5-8AB7-71516C063D56/63/b4afaaf9/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@3.0.6/Scripts/Editor/TMPro_FontPlugin.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.cinemachine@2.6.5/Editor/Editors/CinemachineTargetGroupEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/24599FE2-7761-45D5-8AB7-71516C063D56/10/76382efc/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
@@ -42,16 +51,16 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/DontDestroy.cs" />
       <option value="$PROJECT_DIR$/Assets/Jammo-Character/Scripts/MovementInput.cs" />
       <option value="$PROJECT_DIR$/Assets/JMO Assets/Cartoon FX/Scripts/CFX_AutoDestructShuriken.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/UI/TimerGame.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Cinemachine/CinemachineEffects.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Logic/PlayerLogic.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Mechanics/Character/Audio.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Mechanics/Character/Collision.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Mechanics/JoystickPointer.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Tools/Prefs.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Tools/Tags.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Pool.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Logic/PlayerLogic.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/UI/MainUI.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Mechanics/Character/Audio.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/UI/TimerGame.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1uiU7NP5wl3jWJddVkGCSS05yZc" />
@@ -98,7 +107,7 @@
       <option name="presentableId" value="Default" />
       <updated>1625147737674</updated>
       <workItem from="1625147744438" duration="35666000" />
-      <workItem from="1625260880757" duration="25627000" />
+      <workItem from="1625260880757" duration="31701000" />
     </task>
     <servers />
   </component>

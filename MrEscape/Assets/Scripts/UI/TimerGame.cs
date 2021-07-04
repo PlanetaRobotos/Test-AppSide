@@ -1,30 +1,99 @@
 ﻿using System;
 using System.Collections;
 using Logic;
+using Mechanics.Character;
+using TMPro;
 using Tools;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace UI
 {
-    [Obsolete("Do not use it")]public class TimerGame : MonoBehaviour
+    /// <summary>
+    /// PLayer is losing when time is out
+    /// </summary>
+    public class TimerGame : MonoBehaviour
     {
+        [SerializeField] private Image clockImage;
+        [SerializeField] private Color onColor;
+        [SerializeField] private Color offColor;
+
+        [SerializeField] private TMP_Text timerText;
+        [SerializeField] private GameObject timerBg;
+
+        [SerializeField] private AudioClip loseClip;
+        
+        private Animator _animator;
+        private float _timer;
+        private Animator _playerAnimator;
+        
+        private static readonly int Lose = Animator.StringToHash("Lose");
+
         private void Start()
         {
-            PlayerPrefs.SetInt(Prefs.UseTimer, 0);
+            _animator = timerText.GetComponent<Animator>();
+            _playerAnimator = GameObject.FindWithTag(Tags.Player).GetComponent<Animator>();
+
+            bool isUsing = PlayerPrefs.GetInt(Prefs.UseTimer) == 1;
+            clockImage.color = isUsing ? onColor : offColor;
         }
-        
-        public void StartTimer()
+
+        /// <summary>
+        /// Ui changing and prefs
+        /// </summary>
+        public void ChangeTimer()
         {
-            if (PlayerPrefs.GetInt(Prefs.UseTimer) == 1)
+            bool isUsing = PlayerPrefs.GetInt(Prefs.UseTimer) == 1;
+
+            if (isUsing)
             {
-                StartCoroutine(TimerIe());
+                clockImage.color = offColor;
+                PlayerPrefs.SetInt(Prefs.UseTimer, 0);
+            }
+            else
+            {
+                clockImage.color = onColor;
+                PlayerPrefs.SetInt(Prefs.UseTimer, 1);
             }
         }
 
-        private static IEnumerator TimerIe()
+        /// <summary>
+        /// Use timer
+        /// </summary>
+        public void ActivateTimer()
         {
-            yield return new WaitForSeconds(PlayerLogic.CurrentMaxTime);
+            bool isUsing = PlayerPrefs.GetInt(Prefs.UseTimer) == 1;
+
+            if (isUsing)
+            {
+                StartCoroutine(TimerIe());
+                timerBg.SetActive(true);
+            }
+            else
+            {
+                timerBg.SetActive(false);
+            }
+        }
+
+        private IEnumerator TimerIe()
+        {
+            _timer = PlayerLogic.CurrentMaxTime;
+            while (_timer >= 0)
+            {
+                _timer -= Time.deltaTime;
+                timerText.text = $"{Math.Round(_timer, 2)}";
+                if (_timer < 10f && !_animator.enabled)
+                    _animator.enabled = true;
+                yield return null;
+            }
+
+            timerText.gameObject.SetActive(false);
+            PlayerLogic.CanMove = false;
+            _playerAnimator.SetTrigger(Lose);
+            Audio.Instance.PlaySfx(loseClip);
+            
+            yield return new WaitForSeconds(6f);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }

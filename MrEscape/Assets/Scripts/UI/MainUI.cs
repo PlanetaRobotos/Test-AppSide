@@ -26,9 +26,10 @@ namespace UI
         [Header("Start Panel Stuff")]
         [SerializeField] private Image soundsButton;
         [SerializeField] private Sprite[] audioSprites;
-        [SerializeField] private AudioSource uiAudioSource;
+        private AudioSource _uiAudioSource;
         
         private AudioSource[] _audioSources;
+        [SerializeField] private GameObject startPanel;
 
         private void OnEnable()
         {
@@ -54,8 +55,8 @@ namespace UI
 
         private void Start()
         {
-            uiAudioSource = GetComponent<AudioSource>();
-            
+            _uiAudioSource = GetComponent<AudioSource>();
+            startPanel.SetActive(true);
             InitAudio();
             ChangeLevel();
             ChangeScore();
@@ -74,7 +75,7 @@ namespace UI
 
         public void Quit()
         {
-            uiAudioSource.Play();
+            _uiAudioSource.Play();
             Application.Quit();
         }
 
@@ -94,13 +95,13 @@ namespace UI
 
         public void ChangePause(bool pause)
         {
-            uiAudioSource.Play();
+            _uiAudioSource.Play();
             Time.timeScale = pause ? 0 : 1;
         }
 
         public void ChangeAudio()
         {
-            uiAudioSource.Play();
+            _uiAudioSource.Play();
             bool isMute = PlayerPrefs.GetInt(Prefs.MuteAudio) == 1;
             soundsButton.sprite = isMute ? audioSprites[0] : audioSprites[1];
 

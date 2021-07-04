@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Mechanics.Character
 {
@@ -14,6 +15,9 @@ namespace Mechanics.Character
 
         private AudioSource _audio;
         [SerializeField] private AudioSource stepsAudio;
+        public static Audio Instance;
+
+        private void Awake() => Instance = this;
 
         private void Start() => _audio = GetComponent<AudioSource>();
 

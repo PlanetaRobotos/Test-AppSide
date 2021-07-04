@@ -98,6 +98,7 @@ namespace Logic
             if (isFirstGame)
             {
                 OnFirstGame?.Invoke();
+                PlayerPrefs.SetInt(Prefs.UseTimer, 1);
                 PlayerPrefs.SetInt(Prefs.FirstGame, 1);
             }
         }
